@@ -36,6 +36,15 @@ export default class Genially {
     return description.length <= 125;
   }
 
+
+  set modifiedAt(value: Date) {
+    this._modifiedAt = value;
+  }
+
+  set deletedAt(value: Date) {
+    this._deletedAt = value;
+  }
+
   get id(): string {
     return this._id;
   }
