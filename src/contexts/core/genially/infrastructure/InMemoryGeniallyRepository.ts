@@ -7,21 +7,18 @@ export default class InMemoryGeniallyRepository implements GeniallyRepository {
 
   async save(genially: Genially): Promise<void> {
     logger.info('Saving genially', genially);
+    await this.delete(genially.id);
     this.geniallys.push(genially);
   }
 
   async find(id: string): Promise<Genially> {
-    logger.info('Finding genially', id);
-    logger.info('geniallys find', this.geniallys ? {geniallys: this.geniallys} : {})
+    logger.info('Finding genially', {id});
     return this.geniallys.find((genially) => genially.id === id);
   }
 
   async delete(id: string): Promise<void> {
-    const geniallyToDelete: Genially = this.geniallys.find((genially) => genially.id === id);
-    if (geniallyToDelete) {
-      geniallyToDelete.deletedAt = new Date();
-      geniallyToDelete.modifiedAt = new Date();
-      await this.save(geniallyToDelete)
-    }
+    logger.info('Deleting genially', id);
+    this.geniallys = this.geniallys.filter((genially) => genially.id !== id);
+
   }
 }

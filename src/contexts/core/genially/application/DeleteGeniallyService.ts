@@ -9,11 +9,15 @@ export default class DeleteGeniallyService {
 
   public async execute(id: string): Promise<Genially> {
     logger.info(`Deleting genially id ${id}`, id);
-    await this.geniallyRepository.delete(id);
-    const deletedGenially: Genially = await this.geniallyRepository.find(id);
-    if (deletedGenially){
-      return deletedGenially;
+    const notDeletedGenially: Genially = await this.geniallyRepository.find(id);
+    const deletedGenially: Genially = new Genially(notDeletedGenially.id, notDeletedGenially.name, notDeletedGenially.description);
+    deletedGenially.deletedAt = new Date();
+    await this.geniallyRepository.save(deletedGenially);
+    const genially: Genially = await this.geniallyRepository.find(id);
+    if (genially){
+      return genially;
     } else {
+      logger.error(`Genially ${id} does not exists`, {id});
       throw new GeniallyNotExist(id);
     }
   }
