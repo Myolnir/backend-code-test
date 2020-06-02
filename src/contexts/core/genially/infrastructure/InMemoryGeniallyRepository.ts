@@ -1,10 +1,12 @@
 import Genially from "../domain/Genially";
 import GeniallyRepository from "../domain/GeniallyRepository";
+import {logger} from "../../../../api/shared/logger";
 
 export default class InMemoryGeniallyRepository implements GeniallyRepository {
   private geniallys: Genially[];
 
   async save(genially: Genially): Promise<void> {
+    logger.info('Saving genially', genially);
     await this.delete(genially.id);
     this.geniallys.push(genially);
   }
@@ -14,6 +16,7 @@ export default class InMemoryGeniallyRepository implements GeniallyRepository {
   }
 
   async delete(id: string): Promise<void> {
-    this.geniallys = this.geniallys.filter((genially) => genially.id !== id);
+    logger.info('geniallys', this.geniallys ? {geniallys: this.geniallys} : {})
+    this.geniallys = this.geniallys ? this.geniallys.filter((genially) => genially.id !== id) : [];
   }
 }
