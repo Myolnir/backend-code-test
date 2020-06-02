@@ -2,6 +2,7 @@ import * as express from 'express'
 import {BaseController} from "../../../shared/infra/http/models/BaseController";
 import {logger} from "../../../shared/logger";
 import DeleteGeniallyService from "../../../../contexts/core/genially/application/DeleteGeniallyService";
+import Genially from "../../../../contexts/core/genially/domain/Genially";
 
 export class DeleteGeniallyController extends BaseController{
 
@@ -18,7 +19,7 @@ export class DeleteGeniallyController extends BaseController{
                 logger.error('There is an error on the payload params', {payload: req.body});
                 return this.fail(res, new Error('Id is required'));
             }
-            const dbGenially = await this.deleteGeniallyService.execute(id);
+            const dbGenially: Genially = await this.deleteGeniallyService.execute(id);
             return this.ok<any>(res, dbGenially);
         } catch (err) {
             logger.error('Error',{err});
