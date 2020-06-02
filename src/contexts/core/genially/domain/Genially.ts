@@ -1,3 +1,7 @@
+import {Result} from "./Result";
+import { uuid } from 'uuidv4';
+
+
 export default class Genially {
   private _id: string;
   private _name: string;
@@ -11,6 +15,25 @@ export default class Genially {
     this._name = name;
     this._description = description;
     this._createdAt = new Date();
+  }
+
+  public static createGenially(name: string, description: string): Result<Genially> {
+    if (!Genially.isValidName(name)) {
+      return Result.fail<Genially>('Name is not valid. Length should be between 3 and 20');
+    }
+
+    if (!Genially.isValidDescription(description)) {
+      return Result.fail<Genially>('Description length is not valid. Length should be lower or equal than 125');
+    }
+    return Result.ok<Genially>(new Genially(uuid(), name, description));
+  }
+
+  private static isValidName(name: string) {
+    return name.length >= 3 && name.length <= 20;
+  }
+
+  private static isValidDescription(description: string) {
+    return description.length <= 125;
   }
 
   get id(): string {
