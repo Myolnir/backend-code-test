@@ -33,7 +33,7 @@ export class MongoGeniallyRepository implements GeniallyRepository {
         const dbClient = await this.getConnection();
         const genially: GeniallyInPersistence = await dbClient.db('genially').collection('geniallys').findOne({'_id':id});
         dbClient.close();
-        return this.transformPersistenceObjectToGenially(genially);
+        return genially ? this.transformPersistenceObjectToGenially(genially) : null;
     }
 
     async save(genially: Genially): Promise<void> {
