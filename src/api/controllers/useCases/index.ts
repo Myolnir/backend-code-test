@@ -6,13 +6,15 @@ import {DeleteGeniallyController} from "./deleteGenially/DeleteGeniallyControlle
 import {RenameGeniallyController} from "./renameGenially/RenameGeniallyController";
 import RenameGeniallyService from "../../../contexts/core/genially/application/RenameGeniallyService";
 import {MongoGeniallyRepository} from "../../../contexts/core/genially/infrastructure/MongoGeniallyRepository";
+import {CounterService} from "../../../contexts/core/genially/application/CounterService";
 
 
 const geniallyRepository = new MongoGeniallyRepository(config);
 const deleteGeniallyService = new DeleteGeniallyService(geniallyRepository);
 const renameGeniallyService = new RenameGeniallyService(geniallyRepository);
+const counterService = new CounterService();
 const deleteGeniallyController = new DeleteGeniallyController(deleteGeniallyService);
-const createGeniallyService = new CreateGeniallyService(geniallyRepository);
+const createGeniallyService = new CreateGeniallyService(geniallyRepository, counterService);
 const createGeniallyController = new CreateGeniallyController(createGeniallyService);
 const renameGeniallyController = new RenameGeniallyController(renameGeniallyService);
 
