@@ -12,13 +12,12 @@ export default class InMemoryGeniallyRepository implements GeniallyRepository {
   }
 
   async find(id: string): Promise<Genially> {
-    logger.info('Finding genially', {id});
+    logger.info('Finding genially on our geniallys array', {id, geniallys: this.geniallys});
     return this.geniallys.find((genially) => genially.id === id);
   }
 
   async delete(id: string): Promise<void> {
     logger.info('Deleting genially', id);
     this.geniallys = this.geniallys.filter((genially) => genially.id !== id);
-
   }
 }
