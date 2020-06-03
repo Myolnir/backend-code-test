@@ -18,7 +18,7 @@ export class RenameGeniallyController extends BaseController{
             const { name } = req.body;
             if (!id || !name) {
                 logger.error('There is an error on the payload params', {id, name});
-                return this.fail(res, new Error('Id is required'));
+                return this.fail(res, new Error('Id and name are required'));
             }
             const dbGenially: Genially = await this.renameGeniallyService.execute(id, name);
             return this.ok<any>(res, dbGenially);
