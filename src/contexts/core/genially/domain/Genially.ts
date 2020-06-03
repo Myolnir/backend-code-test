@@ -37,6 +37,14 @@ export default class Genially {
   }
 
 
+  get modifiedAt(): Date {
+    return this._modifiedAt;
+  }
+
+  get deletedAt(): Date {
+    return this._deletedAt;
+  }
+
   set modifiedAt(value: Date) {
     this._modifiedAt = value;
   }
@@ -61,11 +69,7 @@ export default class Genially {
     return this._createdAt;
   }
 
-  get modifiedAt(): Date {
-    return this._modifiedAt;
-  }
-
-  get deletedAt(): Date {
-    return this._deletedAt;
+  set createdAt(value: Date) {
+    this._createdAt = value;
   }
 }

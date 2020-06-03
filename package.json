@@ -24,6 +24,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lusca": "^1.6.1",
+    "mongodb": "^3.5.8",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.10.2",
     "tsconfig-paths": "^3.9.0",

@@ -11,9 +11,9 @@ export default class DeleteGeniallyService extends BaseGeniallyService{
 
   public async execute(id: string): Promise<Genially> {
     logger.info(`Deleting genially id ${id}`, id);
-    const notDeletedGenially: Genially = await this.geniallyRepository.find(id);
+    const notDeletedGenially: any = await this.geniallyRepository.find(id);
     super.checkIfGeniallyExists(notDeletedGenially, id);
-    const deletedGenially: Genially = new Genially(notDeletedGenially.id, notDeletedGenially.name, notDeletedGenially.description);
+    const deletedGenially: Genially = new Genially(notDeletedGenially._id, notDeletedGenially._name, notDeletedGenially._description);
     deletedGenially.deletedAt = new Date();
     await this.geniallyRepository.delete(id);
     await this.geniallyRepository.save(deletedGenially);
